@@ -10,7 +10,9 @@ class MoviesProvider extends ChangeNotifier{
   String _apiKey = 'ac5ae6c4cd5f1879824c53774b00a510';
   //String _apiKey = '1865f43a0549ca50d341dd9ab8b29f49';
   String _baseUrl = 'api.themoviedb.org';
-  String _language = 'en-US';
+  String _language = 'es-ES';
+
+  List<Movie> onDisplayMovies = [];
 
   MoviesProvider(){
     print('Movies Provider Inicializado');
@@ -27,7 +29,9 @@ class MoviesProvider extends ChangeNotifier{
 
       var response = await http.get(url);
       final nowPlayingResponse = NowPlayingResponse.fromRawJson(response.body);
-      print(nowPlayingResponse.results[0].title);
+
+      onDisplayMovies = nowPlayingResponse.results;
+      notifyListeners(); //Escucha por cambios y redibuja la informacion necesaria en widgets
   }
 
 }

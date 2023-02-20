@@ -33,6 +33,15 @@ class Movie {
   double voteAverage;
   int voteCount;
 
+  get fullPosterImg{
+    if(this.posterPath != null){
+      return 'https://image.tmdb.org/t/p/w500${this.posterPath}';
+    }
+    return 'https://i.stack.imgur.com/GNhx0.png';
+
+    
+  }
+
   factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
 
   //qString toRawJson() => json.encode(toJson());
