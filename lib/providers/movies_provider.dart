@@ -3,32 +3,31 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:peliculas/models/models.dart';
 
-class MoviesProvider extends ChangeNotifier{
-
+class MoviesProvider extends ChangeNotifier {
   String _apiKey = 'ac5ae6c4cd5f1879824c53774b00a510';
   //String _apiKey = '1865f43a0549ca50d341dd9ab8b29f49';
   String _baseUrl = 'api.themoviedb.org';
   String _language = 'en-US';
 
-  MoviesProvider(){
+  MoviesProvider() {
     print('Movies Provider Inicializado');
 
     getOnDisplayMovies();
   }
 
-  getOnDisplayMovies() async{
-      var url = Uri.https(_baseUrl, '3/movie/now_playing', {
-        'api_key': _apiKey,
-        'language': _language,
-        'page': '1'
-      });
+  getOnDisplayMovies() async {
+    var url = Uri.https(_baseUrl, '3/movie/now_playing',
+        {'api_key': _apiKey, 'language': _language, 'page': '1'});
 
-      var response = await http.get(url);
-      final Map<String, dynamic> decodeData = json.decode(response.body);
-      print(decodeData['results']);
+    var response = await http.get(url);
+
+    final nowPlayingResponse = NowPlayingResponse.fromJson(response.body);
+
+    final Map<String, dynamic> decodeData = json.decode(response.body);
+    print(decodeData['results']);
   }
-
 }
 
 // import 'dart:convert' as convert;
