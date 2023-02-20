@@ -27,7 +27,6 @@ class MoviesProvider extends ChangeNotifier{
 
       var response = await http.get(url);
       final nowPlayingResponse = NowPlayingResponse.fromRawJson(response.body);
-      //final Map<String, dynamic> decodeData = json.decode(response.body);
       print(nowPlayingResponse.results[0].title);
   }
 
