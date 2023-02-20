@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:peliculas/models/models.dart';
 
@@ -13,11 +11,13 @@ class MoviesProvider extends ChangeNotifier{
   String _language = 'es-ES';
 
   List<Movie> onDisplayMovies = [];
+  List<Movie> popularMovies = [];
 
   MoviesProvider(){
     print('Movies Provider Inicializado');
 
     getOnDisplayMovies();
+    getPopularMovies();
   }
 
   getOnDisplayMovies() async{
@@ -31,6 +31,20 @@ class MoviesProvider extends ChangeNotifier{
       final nowPlayingResponse = NowPlayingResponse.fromRawJson(response.body);
 
       onDisplayMovies = nowPlayingResponse.results;
+      notifyListeners(); //Escucha por cambios y redibuja la informacion necesaria en widgets
+  }
+
+  getPopularMovies() async{
+      var url = Uri.https(_baseUrl, '3/movie/popular', {
+        'api_key': _apiKey,
+        'language': _language,
+        'page': '1'
+      });
+
+      var response = await http.get(url);
+      final popularResponse = PopularResponse.fromRawJson(response.body);
+
+      popularMovies = [...popularMovies,...popularResponse.results];
       notifyListeners(); //Escucha por cambios y redibuja la informacion necesaria en widgets
   }
 
