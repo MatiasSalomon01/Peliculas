@@ -78,7 +78,7 @@ class _MoviePoster extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 130,
-      height: 190,
+      height: 90,
       //color: Colors.green,
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
@@ -92,7 +92,7 @@ class _MoviePoster extends StatelessWidget {
                 placeholder: const AssetImage('assets/no-image.jpg'),
                 image: NetworkImage(movie.fullPosterImg),
                 width: 130,
-                height: 190,
+                height: 180,
                 fit: BoxFit.cover,
               ),
             ),
