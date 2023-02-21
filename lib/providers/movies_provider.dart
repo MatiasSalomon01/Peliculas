@@ -13,6 +13,8 @@ class MoviesProvider extends ChangeNotifier{
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
 
+  int _popularPage = 0;
+
   MoviesProvider(){
     print('Movies Provider Inicializado');
 
@@ -20,54 +22,33 @@ class MoviesProvider extends ChangeNotifier{
     getPopularMovies();
   }
 
-  getOnDisplayMovies() async{
-      var url = Uri.https(_baseUrl, '3/movie/now_playing', {
+  Future<String>_getJsonData(String endpoint, [int page = 1]) async{
+    var url = Uri.https(_baseUrl, endpoint, {
         'api_key': _apiKey,
         'language': _language,
-        'page': '1'
+        'page': '$page'
       });
 
       var response = await http.get(url);
-      final nowPlayingResponse = NowPlayingResponse.fromRawJson(response.body);
+      return response.body;
+  }
 
-      onDisplayMovies = nowPlayingResponse.results;
-      notifyListeners(); //Escucha por cambios y redibuja la informacion necesaria en widgets
+  getOnDisplayMovies() async{
+    final jsonData = await _getJsonData('3/movie/now_playing');
+    final nowPlayingResponse = NowPlayingResponse.fromRawJson(jsonData);
+
+    onDisplayMovies = nowPlayingResponse.results;
+    notifyListeners(); //Escucha por cambios y redibuja la informacion necesaria en widgets
   }
 
   getPopularMovies() async{
-      var url = Uri.https(_baseUrl, '3/movie/popular', {
-        'api_key': _apiKey,
-        'language': _language,
-        'page': '1'
-      });
 
-      var response = await http.get(url);
-      final popularResponse = PopularResponse.fromRawJson(response.body);
+    _popularPage++;
+    final jsonData = await _getJsonData('3/movie/popular', _popularPage);
+    final popularResponse = PopularResponse.fromRawJson(jsonData);
 
-      popularMovies = [...popularMovies,...popularResponse.results];
-      notifyListeners(); //Escucha por cambios y redibuja la informacion necesaria en widgets
+    popularMovies = [...popularMovies,...popularResponse.results];
+    notifyListeners(); //Escucha por cambios y redibuja la informacion necesaria en widgets
   }
 
 }
-
-// import 'dart:convert' as convert;
-
-// import 'package:http/http.dart' as http;
-
-// void main(List<String> arguments) async {
-//   // This example uses the Google Books API to search for books about http.
-//   // https://developers.google.com/books/docs/overview
-//   var url =
-//       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
-
-//   // Await the http get response, then decode the json-formatted response.
-//   var response = await http.get(url);
-//   if (response.statusCode == 200) {
-//     var jsonResponse =
-//         convert.jsonDecode(response.body) as Map<String, dynamic>;
-//     var itemCount = jsonResponse['totalItems'];
-//     print('Number of books about http: $itemCount.');
-//   } else {
-//     print('Request failed with status: ${response.statusCode}.');
-//   }
-// }
