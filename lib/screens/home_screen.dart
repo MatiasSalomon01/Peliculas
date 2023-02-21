@@ -8,8 +8,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final moviesProvider = Provider.of<MoviesProvider>(context); //trae la instancia de MoviesProvider
+    final moviesProvider = Provider.of<MoviesProvider>(
+        context); //trae la instancia de MoviesProvider
 
     // print(moviesProvider.onDisplayMovies);
 
@@ -18,26 +18,25 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Peliculas en Cines'),
         elevation: 0,
         actions: [
-          IconButton(
-            onPressed: () {}, 
-            icon: const Icon(Icons.search_outlined)
-          )
+          IconButton(onPressed: () {}, icon: const Icon(Icons.search_outlined))
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            //Tarjetas Principales
-            CardSwiper(movies: moviesProvider.onDisplayMovies,),
+          child: Column(
+        children: [
+          //Tarjetas Principales
+          CardSwiper(
+            movies: moviesProvider.onDisplayMovies,
+          ),
 
-            //Slider de Peliculas
-            MovieSlider(
-              movies: moviesProvider.popularMovies,
-              title: 'Populares',
-            ),
-          ],
-        )
-      ),
+          //Slider de Peliculas
+          MovieSlider(
+            movies: moviesProvider.popularMovies,
+            title: 'Populares',
+            onNextPage: () => moviesProvider.getPopularMovies(),
+          ),
+        ],
+      )),
     );
   }
 }
