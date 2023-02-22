@@ -76,6 +76,7 @@ class _CastCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 18),
           )
         ],
       ),

@@ -16,8 +16,11 @@ class DetailsScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate([
               _PosterAndTitle(movie),
+              const SizedBox(
+                height: 5,
+              ),
               _Overview(movie),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               CastingCards(movie.id)
@@ -104,13 +107,13 @@ class _PosterAndTitle extends StatelessWidget {
                 children: [
                   Text(
                     movie.title,
-                    style: textTheme.headlineSmall,
+                    style: TextStyle(fontSize: 30),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   ),
                   Text(
                     movie.originalTitle,
-                    style: textTheme.titleMedium,
+                    style: TextStyle(fontSize: 20),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                   ),
@@ -126,7 +129,7 @@ class _PosterAndTitle extends StatelessWidget {
                       ),
                       Text(
                         '${movie.voteAverage}',
-                        style: textTheme.bodySmall,
+                        style: TextStyle(fontSize: 15),
                       )
                     ],
                   ),
@@ -153,7 +156,7 @@ class _Overview extends StatelessWidget {
       child: Text(
         movie.overview,
         textAlign: TextAlign.justify,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: TextStyle(fontSize: 18),
       ),
     );
   }
