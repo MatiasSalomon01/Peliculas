@@ -1,18 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:peliculas/helpers/debouncer.dart';
-import 'package:peliculas/models/credits_response.dart';
 import 'package:peliculas/models/models.dart';
 import 'package:peliculas/models/search_response.dart';
 
 class MoviesProvider extends ChangeNotifier {
-  String _apiKey = 'ac5ae6c4cd5f1879824c53774b00a510';
+  final String _apiKey = 'ac5ae6c4cd5f1879824c53774b00a510';
   //String _apiKey = '1865f43a0549ca50d341dd9ab8b29f49';
-  String _baseUrl = 'api.themoviedb.org';
-  String _language = 'es-ES';
+  final String _baseUrl = 'api.themoviedb.org';
+  final String _language = 'es-ES';
 
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
@@ -21,15 +18,15 @@ class MoviesProvider extends ChangeNotifier {
 
   int _popularPage = 0;
 
-  final debouncer = Debouncer(duration: Duration(milliseconds: 500));
+  final debouncer = Debouncer(duration: const Duration(milliseconds: 500));
 
   final StreamController<List<Movie>> _suggestionStreamController =
-      new StreamController.broadcast();
+      StreamController.broadcast();
   Stream<List<Movie>> get suggestionStream =>
-      this._suggestionStreamController.stream;
+      _suggestionStreamController.stream;
 
   MoviesProvider() {
-    print('Movies Provider Inicializado');
+    //print('Movies Provider Inicializado');
 
     getOnDisplayMovies();
     getPopularMovies();
@@ -84,14 +81,14 @@ class MoviesProvider extends ChangeNotifier {
     debouncer.value = '';
     debouncer.onValue = (value) async {
       //print('tenemos valor a buscar: $value');
-      final results = await this.searchMovies(value);
-      this._suggestionStreamController.add(results);
+      final results = await searchMovies(value);
+      _suggestionStreamController.add(results);
     };
 
-    final timer = Timer.periodic(Duration(milliseconds: 300), (_) {
+    final timer = Timer.periodic(const Duration(milliseconds: 300), (_) {
       debouncer.value = searchTerm;
     });
 
-    Future.delayed(Duration(milliseconds: 301)).then((_) => timer.cancel());
+    Future.delayed(const Duration(milliseconds: 301)).then((_) => timer.cancel());
   }
 }

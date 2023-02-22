@@ -18,7 +18,7 @@ class CardSwiper extends StatelessWidget {
         width: double.infinity,
         height: size.height * 0.5,
         //color: Colors.red,
-        child: Center(
+        child: const Center(
           child: CircularProgressIndicator(),
         ),
       );
@@ -46,7 +46,7 @@ class CardSwiper extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: FadeInImage(
-                  placeholder: AssetImage('assets/no-image.jpg'),
+                  placeholder: const AssetImage('assets/no-image.jpg'),
                   image: NetworkImage(movie.fullPosterImg),
                   fit: BoxFit.cover,
                 ),

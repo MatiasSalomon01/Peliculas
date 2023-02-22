@@ -3,11 +3,10 @@ import 'package:peliculas/providers/movies_provider.dart';
 import 'package:peliculas/screens/screens.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(AppState());
+void main() => runApp(const AppState());
 
 class AppState extends StatelessWidget {
-  //const AppState({super.key});
-
+  const AppState({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
