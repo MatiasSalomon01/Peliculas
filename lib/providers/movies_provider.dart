@@ -85,10 +85,11 @@ class MoviesProvider extends ChangeNotifier {
       _suggestionStreamController.add(results);
     };
 
-    final timer = Timer.periodic(const Duration(milliseconds: 300), (_) {
+    final timer = Timer.periodic(const Duration(milliseconds: 200), (_) {
       debouncer.value = searchTerm;
     });
 
-    Future.delayed(const Duration(milliseconds: 301)).then((_) => timer.cancel());
+    Future.delayed(const Duration(milliseconds: 201))
+        .then((_) => timer.cancel());
   }
 }

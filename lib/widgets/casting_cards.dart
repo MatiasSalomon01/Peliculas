@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:peliculas/models/credits_response.dart';
 import 'package:peliculas/providers/movies_provider.dart';
@@ -23,19 +25,21 @@ class CastingCards extends StatelessWidget {
         }
 
         final cast = snapshot.data;
+        final count = cast!.length;
 
-        return Container(
-          margin: const EdgeInsets.only(bottom: 30),
-          width: double.infinity,
-          height: 180,
-          //color: Colors.red,
-          child: ListView.builder(
-            itemCount: 10,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (BuildContext context, int index) =>
-                _CastCard(cast![index]),
-          ),
-        );
+        if (cast.isNotEmpty) {
+          return Container(
+              margin: const EdgeInsets.only(bottom: 30),
+              width: double.infinity,
+              height: 190,
+              //color: Colors.red,
+              child: ListView.builder(
+                  itemCount: count > 12 ? 12 : count,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) =>
+                      _CastCard(cast[index])));
+        }
+        return const _CastNotFound();
       },
     );
   }
@@ -75,6 +79,26 @@ class _CastCard extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class _CastNotFound extends StatelessWidget {
+  const _CastNotFound({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: const [
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          'No hay Datos del Cast',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+      ],
     );
   }
 }

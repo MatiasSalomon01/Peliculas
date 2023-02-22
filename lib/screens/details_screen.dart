@@ -17,6 +17,9 @@ class DetailsScreen extends StatelessWidget {
             delegate: SliverChildListDelegate([
               _PosterAndTitle(movie),
               _Overview(movie),
+              SizedBox(
+                height: 10,
+              ),
               CastingCards(movie.id)
             ]),
           ),
@@ -92,40 +95,43 @@ class _PosterAndTitle extends StatelessWidget {
           const SizedBox(
             width: 20,
           ),
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: size.width - 160),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  movie.title,
-                  style: textTheme.headlineSmall,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                ),
-                Text(
-                  movie.originalTitle,
-                  style: textTheme.titleMedium,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.star_outlined,
-                      size: 15,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      '${movie.voteAverage}',
-                      style: textTheme.bodySmall,
-                    )
-                  ],
-                ),
-              ],
+          Container(
+            //color: Colors.red,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: size.width - 170),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    movie.title,
+                    style: textTheme.headlineSmall,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
+                  Text(
+                    movie.originalTitle,
+                    style: textTheme.titleMedium,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star_outlined,
+                        size: 15,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '${movie.voteAverage}',
+                        style: textTheme.bodySmall,
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],

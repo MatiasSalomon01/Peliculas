@@ -51,7 +51,7 @@ class _MovieSliderState extends State<MovieSlider> {
                 ),
               ),
             const SizedBox(
-              height: 5,
+              height: 15,
             ),
             Expanded(
               child: ListView.builder(

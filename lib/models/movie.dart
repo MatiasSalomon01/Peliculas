@@ -39,14 +39,14 @@ class Movie {
     if (posterPath != null) {
       return 'https://image.tmdb.org/t/p/w500$posterPath';
     }
-    return 'https://i.stack.imgur.com/GNhx0.png';
+    return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH4d1ldfiI0npUaDbUXnRHjumUJmSpIaKErA&usqp=CAU';
   }
 
   get fullBackdropPath {
     if (backdropPath != null) {
       return 'https://image.tmdb.org/t/p/w500$backdropPath';
     }
-    return 'https://i.stack.imgur.com/GNhx0.png';
+    return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH4d1ldfiI0npUaDbUXnRHjumUJmSpIaKErA&usqp=CAU';
   }
 
   factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
